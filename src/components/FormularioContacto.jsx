@@ -1,59 +1,113 @@
 import { useState } from "react";
 
 export default function FormularioContacto({ onAgregar }) {
+  // Estado único del formulario
   const [form, setForm] = useState({
     nombre: "",
-    correo: "",
     telefono: "",
+    correo: "",
     etiqueta: "",
   });
 
+  // Actualizar por nombre de campo
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
   };
 
+  // Enviar datos al padre con validación mínima
   const onSubmit = (e) => {
-    e.preventDefault(); // evita recargar
-    if (!form.nombre.trim() || !form.telefono.trim()) {
-      alert("Completa al menos Nombre y Teléfono");
-      return;
-    }
-    onAgregar(form); // App agrega id y actualiza la lista
-    setForm({ nombre: "", correo: "", telefono: "", etiqueta: "" }); // limpiar
+    e.preventDefault();
+
+    if (!form.nombre || !form.telefono || !form.correo) return;
+
+    onAgregar(form);
+
+    setForm({
+      nombre: "",
+      telefono: "",
+      correo: "",
+      etiqueta: "",
+    });
   };
 
   return (
-    <form onSubmit={onSubmit} className="form-contacto">
-           {" "}
-      <input
-        name="nombre"
-        placeholder="Nombre"
-        value={form.nombre}
-        onChange={onChange}
-      />
-           {" "}
-      <input
-        name="telefono"
-        placeholder="Teléfono"
-        value={form.telefono}
-        onChange={onChange}
-      />
-           {" "}
-      <input
-        name="correo"
-        placeholder="Correo"
-        value={form.correo}
-        onChange={onChange}
-      />
-           {" "}
-      <input
-        name="etiqueta"
-        placeholder="Etiqueta (opcional)"
-        value={form.etiqueta}
-        onChange={onChange}
-      />
-            <button type="submit">Agregar contacto</button>   {" "}
+    <form onSubmit={onSubmit} className="space-y-4">
+      {/* Nombre + Teléfono (grid responsive) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Nombre *
+          </label>
+
+          <input
+            type="text"
+            name="nombre"
+            value={form.nombre}
+            onChange={onChange}
+            placeholder="Ej: Ana Pérez"
+            required
+            className="mt-1 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none p-3"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Teléfono *
+          </label>
+
+          <input
+            type="tel"
+            name="telefono"
+            value={form.telefono}
+            onChange={onChange}
+            placeholder="Ej: 3001234567"
+            required
+            className="mt-1 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none p-3"
+          />
+        </div>
+      </div>
+
+      {/* Correo */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Correo *
+        </label>
+
+        <input
+          type="email"
+          name="correo"
+          value={form.correo}
+          onChange={onChange}
+          placeholder="Ej: ana@sena.edu.co"
+          required
+          className="mt-1 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none p-3"
+        />
+      </div>
+
+      {/* Etiqueta opcional */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Etiqueta (opcional)
+        </label>
+
+        <input
+          type="text"
+          name="etiqueta"
+          value={form.etiqueta}
+          onChange={onChange}
+          placeholder="Ej: Trabajo"
+          className="mt-1 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none p-3"
+        />
+      </div>
+
+      {/* Botón principal morado */}
+      <button
+        type="submit"
+        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-colors"
+      >
+        Agregar contacto
+      </button>
     </form>
   );
 }
