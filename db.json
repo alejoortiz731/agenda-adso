@@ -1,0 +1,18 @@
+{
+    "contactos": [
+        {
+            "id": "1d3f",
+            "nombre": "Gustavo",
+            "telefono": "3217532037",
+            "correo": "gabodorado@gmail.com",
+            "etiqueta": "profe"
+        },
+        {
+            "nombre": "daniel",
+            "telefono": "3006917825",
+            "correo": "daniel@gmail.com",
+            "etiqueta": "Estudiante",
+            "id": "PN-GVMi"
+        }
+    ]
+}
