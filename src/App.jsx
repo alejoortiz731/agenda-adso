@@ -37,9 +37,11 @@ export default function App() {
       setError("");
       const creado = await crearContacto(nuevo); // POST a la API 
       setContactos((prev) => [...prev, creado]); // Actualizamos estado 
+      return creado;
     } catch (error) {
-      console.error(error);
-      setError("No se pudo agregar el contacto");
+      console.error("Error al agregar contacto en App:", error);
+      // Relanzamos el error para que FormularioContacto lo capture en su try/catch
+      throw error;
     }
   };
 
@@ -63,15 +65,15 @@ export default function App() {
           Programa ADSO
         </p>
         <h1 className="text-4xl md:text-5xl font-black text-gray-900 mt-2">
-          Agenda ADSO v5
+          Agenda ADSO v6
         </h1>
         <p className="text-gray-500 mt-1">
-          Gestión de contactos conectada a una API local con JSON Server.
+          Gestión de contactos con validaciones UX y conexión a API local.
         </p>
       </header>
 
       <section className="max-w-6xl mx-auto px-6 py-8 space-y-6">
-        {/* Mensajes de estado */}
+        {/* Mensajes de estado global */}
         {error && (
           <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
             {error}
