@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  listarContactos,
-  crearContacto,
-  eliminarContactoPorId,
+import { listarContactos, crearContacto, eliminarContactoPorId,
 } from "./api.js";
 import FormularioContacto from "./components/FormularioContacto";
 import ContactoCard from "./components/ContactoCard";
